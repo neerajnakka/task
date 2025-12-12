@@ -1,0 +1,32 @@
+name: Debug - Strapi Logs via SSH
+
+on:
+  workflow_dispatch:
+
+jobs:
+  debug-logs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Debug EC2
+      uses: appleboy/ssh-action@v1.0.3
+      env:
+        # We need to know the IP. Since we don't have it in output anymore (lost state?), 
+        # we will hardcode the one the user just gave us or ask user to input it.
+        # User provided: 13.127.210.18
+        HOST_IP: "13.127.210.18" 
+      with:
+        host: ${{ env.HOST_IP }}
+        username: ubuntu
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          echo "=== DOCKER PROCESSES ==="
+          sudo docker ps -a
+          
+          echo "\n=== DOCKER NETWORKS ==="
+          sudo docker network ls
+          
+          echo "\n=== DOCKER INSPECT STRAPI ==="
+          sudo docker inspect strapi-app | grep -A 20 "Networks"
+          
+          echo "\n=== STRAPI LOGS (Last 50 lines) ==="
+          sudo docker logs --tail 50 strapi-app
