@@ -83,8 +83,12 @@ jobs:
           sudo docker stop strapi-app || true
           sudo docker rm strapi-app || true
           
-          # Ensure network exists
-          sudo docker network create strapi-net || true
+          # Ensure network exists (Docker Compose usually creates 'foldername_networkname')
+          NETWORK_NAME="strapi-app_strapi-net"
+          if ! sudo docker network inspect "$NETWORK_NAME" >/dev/null 2>&1; then
+            echo "Network $NETWORK_NAME not found, creating..."
+            sudo docker network create "$NETWORK_NAME"
+          fi
 
           # Run new container
           sudo docker run -d \
@@ -102,5 +106,5 @@ jobs:
             -e API_TOKEN_SALT="somerandomsalt123" \
             -e ADMIN_JWT_SECRET="supersecretadminjwt" \
             -e JWT_SECRET="supersecretjwt" \
-            --network strapi-net \
+            --network "$NETWORK_NAME" \
             $IMAGE_URI
