@@ -14,6 +14,9 @@ This repository contains a Strapi application.
 | **Task 1** | Basic Strapi setup with a custom content type            |
 | **Task 2** | Containerized Strapi using a multi-stage Dockerfile      |
 | **Task 3** | Fully Dockerized stack using PostgreSQL + Strapi + Nginx |
+| **Task 4** | Docker Hub image storage setup |
+| **Task 5** | Infrastructure as Code (Terraform) deployment to AWS |
+| **Task 6** | Automated CI/CD Pipeline (GitHub Actions + AWS ECR + S3 Backend) |
 
 ---
 
@@ -315,6 +318,7 @@ terraform destroy -auto-approve
 | Task 3 | PostgreSQL + Strapi + Nginx deployed via Docker Compose    |
 | Task 4 | Docker image pushed to Docker Hub (`anirek/strapi-app`)    |
 | Task 5 | AWS EC2 deployment using Terraform with automated setup    |
+| Task 6 | Full CI/CD Pipeline (GitHub Actions, ECR, S3 Backend)      |
 
 ---
 
