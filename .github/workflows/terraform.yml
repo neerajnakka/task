@@ -100,7 +100,7 @@ jobs:
             -e DATABASE_PORT=5432 \
             -e DATABASE_NAME=strapidb \
             -e DATABASE_USERNAME=strapi \
-            -e DATABASE_PASSWORD=strapi123 \
+            -e DATABASE_PASSWORD=StrapiSecurePass2025! \
             -e NODE_ENV=production \
             -e APP_KEYS="key1,key2" \
             -e API_TOKEN_SALT="somerandomsalt123" \
