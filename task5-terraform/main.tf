@@ -65,17 +65,6 @@ resource "aws_security_group" "app_sg" {
   }
 }
 
-# --- ECR Repository ---
-resource "aws_ecr_repository" "strapi_app" {
-  name                 = "neeraj-strapi-repo"
-  image_tag_mutability = "MUTABLE"
-  force_delete         = true
-
-  image_scanning_configuration {
-    scan_on_push = true
-  }
-}
-
 # --- EC2 Instance ---
 resource "aws_instance" "app_server" {
   ami           = var.ami_id
@@ -105,9 +94,4 @@ resource "aws_instance" "app_server" {
 output "instance_public_ip" {
   description = "Public IP address of the EC2 instance"
   value       = aws_instance.app_server.public_ip
-}
-
-output "ecr_repository_url" {
-  description = "URL of the ECR repository"
-  value       = aws_ecr_repository.strapi_app.repository_url
 }
