@@ -101,7 +101,8 @@ resource "aws_ecs_task_definition" "strapi" {
         { name = "API_TOKEN_SALT", value = var.api_token_salt },
         { name = "ADMIN_JWT_SECRET", value = var.admin_jwt_secret },
         { name = "JWT_SECRET", value = var.jwt_secret },
-        { name = "DATABASE_SSL", value = "{\"rejectUnauthorized\": false}" }, # Fix: Enable SSL but skip CA check
+        { name = "DATABASE_SSL", value = "true" }, 
+        { name = "DATABASE_SSL_REJECT_UNAUTHORIZED", value = "false" }, # Fix: Correct usage per config/database.ts
       ]
     }
   ])
