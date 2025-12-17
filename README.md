@@ -17,6 +17,8 @@ This repository contains a Strapi application.
 | **Task 4** | Docker Hub image storage setup |
 | **Task 5** | Infrastructure as Code (Terraform) deployment to AWS |
 | **Task 6** | Automated CI/CD Pipeline (GitHub Actions + AWS ECR + S3 Backend) |
+| **Task 7** | **Production Deployment** (ECS Fargate, RDS, Application Load Balancer) |
+| **Task 8** | **CloudWatch Monitoring** (Dashboards, Alarms, Container Insights) |
 
 ---
 
@@ -352,6 +354,69 @@ flowchart LR
 *   **Reliability**: Added check mechanisms for `cloud-init` completion and network existence.
 *   **Zero-Downtime-ish**: Rolling updates by pulling new images and restarting containers.
 
+## ☁️ Task 7 – Production Deployment (ECS Fargate + RDS)
+
+Transformed the single-server deployment into a **Scalable, Serverless, Production-Grade** infrastructure.
+
+### Architecture
+
+```mermaid
+flowchart TB
+    User((User)) -->|HTTPS/80| ALB[Application Load Balancer]
+    subgraph VPC [Custom VPC]
+        subgraph Public Subnets
+            ALB
+            ECS[ECS Service (Fargate)]
+        end
+        subgraph Private Subnets
+            RDS[(AWS RDS Postgres)]
+        end
+    end
+    
+    ALB -->|Forward 1337| ECS
+    ECS -->|Connect 5432| RDS
+```
+
+### Components Built (Terraform)
+All infrastructure is defined in `task7-ecs/terraform`:
+
+1.  **VPC & Networking** (`networking.tf`):
+    *   **High Availability**: 2 Public Subnets (App) + 2 Private Subnets (DB) across 2 Availability Zones.
+    *   **Security**: Chained Security Groups (ALB -> ECS -> RDS).
+2.  **Database** (`rds.tf`):
+    *   **Managed**: AWS RDS PostgreSQL 15.10.
+    *   **Secure**: Isolated in private subnets, no public access.
+3.  **Compute** (`ecs.tf`):
+    *   **Serverless**: ECS Fargate (No EC2 management).
+    *   **Auto-Healing**: If the container crashes, ECS replaces it automatically.
+4.  **Load Balancer** (`alb.tf`):
+    *   Handles traffic distribution and Health Checks.
+
+### Automated CI/CD (`deploy-ecs.yml`)
+1.  **Build**: Docker Build -> Push to **ECR**.
+2.  **Zero-Downtime Deploy**:
+    *   Renders new Task Definition with the new Image ID.
+    *    performs a **Rolling Update** of the ECS Service.
+
+### Debugging & Verification
+*   **Debug Workflow**: Created `.github/workflows/debug-ecs-logs.yml` to one-click fetch logs from Fargate.
+*   **SSL Fix**: Configured `DATABASE_SSL=true` and `rejectUnauthorized=false` to meet RDS security standards.
+
+## 📊 Task 8 – CloudWatch Monitoring & Metrics
+
+Added a layer of **Observability** to the ECS Infrastructure.
+
+### Features Added
+1.  **Container Insights**: Enabled on the ECS Cluster to track granular metrics (Task Count, Network I/O, Storage).
+2.  **CloudWatch Logs**: Centralized logging group `/ecs/strapi-app`.
+3.  **Automated Alarms** (`monitoring.tf`):
+    *   🚨 **High CPU**: Triggers if usage > 80%.
+    *   🚨 **High Memory**: Triggers if usage > 80%.
+4.  **Operational Dashboard**: A "Single Pane of Glass" showing:
+    *   Service Health (CPU/RAM).
+    *   Live Task Count.
+    *   Network Traffic Graphs.
+
 ---
 
 ## ✔️ Deliverables Summary
@@ -364,6 +429,7 @@ flowchart LR
 | Task 4 | Docker image pushed to Docker Hub (`anirek/strapi-app`)    |
 | Task 5 | AWS EC2 deployment using Terraform with automated setup    |
 | Task 6 | Full CI/CD Pipeline (GitHub Actions, ECR, S3 Backend)      |
+| Task 7 | Production ECS Fargate Cluster + RDS + Automated Deploy|
 
 ---
 
@@ -373,15 +439,17 @@ flowchart LR
 neeraj-strapi-task1/
 ├── src/                      # Strapi application code
 ├── config/                   # Strapi configuration
-├── Dockerfile                # Multi-stage Docker build
-├── docker-compose.yaml       # Local stack orchestration
-├── .dockerignore            # Docker build exclusions
-├── task5-terraform/         # Terraform infrastructure code
-│   ├── main.tf              # Core infrastructure
-│   ├── variables.tf         # Input variables
-│   ├── outputs.tf           # Output values
-│   └── install_strapi.sh.tpl # User Data script
-└── README.md                # This file
+├── task5-terraform/          # EC2 Infrastructure (Legacy)
+├── task7-ecs/                # ECS Infrastructure (Production)
+│   └── terraform/
+│       ├── networking.tf     # VPC, Subnets, SG
+│       ├── ecs.tf            # Cluster, Service, Task Def
+│       ├── rds.tf            # Database
+│       └── alb.tf            # Load Balancer
+├── .github/workflows/
+│   ├── deploy-ecs.yml        # Task 7 CI/CD
+│   └── debug-ecs-logs.yml    # Debugging Tool
+└── README.md                 # This file
 ```
 
 ---

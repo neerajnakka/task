@@ -1,0 +1,105 @@
+{
+    "tasks": [
+        {
+            "attachments": [
+                {
+                    "id": "998cb886-2b28-4b93-9b1b-6c1423c4edc4",
+                    "type": "ElasticNetworkInterface",
+                    "status": "DELETED",
+                    "details": [
+                        {
+                            "name": "subnetId",
+                            "value": "subnet-0ea840c1af96c4e51"
+                        },
+                        {
+                            "name": "networkInterfaceId",
+                            "value": "eni-0613b96a8f55dfac2"
+                        },
+                        {
+                            "name": "macAddress",
+                            "value": "0a:64:6d:29:b4:a9"
+                        },
+                        {
+                            "name": "privateDnsName",
+                            "value": "ip-10-0-1-230.ap-south-1.compute.internal"
+                        },
+                        {
+                            "name": "privateIPv4Address",
+                            "value": "10.0.1.230"
+                        }
+                    ]
+                }
+            ],
+            "attributes": [
+                {
+                    "name": "ecs.cpu-architecture",
+                    "value": "x86_64"
+                }
+            ],
+            "availabilityZone": "ap-south-1b",
+            "clusterArn": "arn:aws:ecs:ap-south-1:294568841304:cluster/strapi-ecs-cluster",
+            "connectivity": "CONNECTED",
+            "connectivityAt": "2025-12-15T16:55:34.565000+05:30",
+            "containers": [
+                {
+                    "containerArn": "arn:aws:ecs:ap-south-1:294568841304:container/strapi-ecs-cluster/087fcbf1c7f1426caead432fbec84279/e97c4638-cce9-40b4-a60f-10226c486e56",
+                    "taskArn": "arn:aws:ecs:ap-south-1:294568841304:task/strapi-ecs-cluster/087fcbf1c7f1426caead432fbec84279",
+                    "name": "strapi-app",
+                    "image": "294568841304.dkr.ecr.ap-south-1.amazonaws.com/neeraj-strapi-ecs-repo:6bd15933229aecd80a7ccfb480e7d286594467f7",
+                    "imageDigest": "sha256:5ef58e52d8c1f520342488ac2f22cef3a577450fa36fb3899878f0d887368017",
+                    "runtimeId": "087fcbf1c7f1426caead432fbec84279-3228786034",
+                    "lastStatus": "STOPPED",
+                    "exitCode": 1,
+                    "networkBindings": [],
+                    "networkInterfaces": [
+                        {
+                            "attachmentId": "998cb886-2b28-4b93-9b1b-6c1423c4edc4",
+                            "privateIpv4Address": "10.0.1.230"
+                        }
+                    ],
+                    "healthStatus": "UNKNOWN",
+                    "cpu": "0"
+                }
+            ],
+            "cpu": "1024",
+            "createdAt": "2025-12-15T16:55:30.932000+05:30",
+            "desiredStatus": "STOPPED",
+            "enableExecuteCommand": false,
+            "executionStoppedAt": "2025-12-15T16:56:09.849000+05:30",
+            "group": "service:strapi-service",
+            "healthStatus": "UNKNOWN",
+            "lastStatus": "STOPPED",
+            "launchType": "FARGATE",
+            "memory": "2048",
+            "overrides": {
+                "containerOverrides": [
+                    {
+                        "name": "strapi-app"
+                    }
+                ],
+                "inferenceAcceleratorOverrides": []
+            },
+            "platformVersion": "1.4.0",
+            "platformFamily": "Linux",
+            "pullStartedAt": "2025-12-15T16:55:42.206000+05:30",
+            "pullStoppedAt": "2025-12-15T16:56:01.906000+05:30",
+            "startedAt": "2025-12-15T16:56:15.991000+05:30",
+            "startedBy": "ecs-svc/8300546083986477548",
+            "stopCode": "EssentialContainerExited",
+            "stoppedAt": "2025-12-15T17:01:36.793000+05:30",
+            "stoppedReason": "Essential container in task exited",
+            "stoppingAt": "2025-12-15T16:56:19.880000+05:30",
+            "tags": [],
+            "taskArn": "arn:aws:ecs:ap-south-1:294568841304:task/strapi-ecs-cluster/087fcbf1c7f1426caead432fbec84279",
+            "taskDefinitionArn": "arn:aws:ecs:ap-south-1:294568841304:task-definition/strapi-task:4",
+            "version": 7,
+            "ephemeralStorage": {
+                "sizeInGiB": 20
+            },
+            "fargateEphemeralStorage": {
+                "sizeInGiB": 20
+            }
+        }
+    ],
+    "failures": []
+}

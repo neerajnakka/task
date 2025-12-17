@@ -1,0 +1,16 @@
+{
+    "taskArns": [
+        "arn:aws:ecs:ap-south-1:294568841304:task/strapi-ecs-cluster/087fcbf1c7f1426caead432fbec84279",
+        "arn:aws:ecs:ap-south-1:294568841304:task/strapi-ecs-cluster/2b6073b8b13c4f6eb9c6d6b852d1489d",
+        "arn:aws:ecs:ap-south-1:294568841304:task/strapi-ecs-cluster/503ba08cb861453a993710c12937d7a7",
+        "arn:aws:ecs:ap-south-1:294568841304:task/strapi-ecs-cluster/b655274efebd48a087a41bac25b8d1fd",
+        "arn:aws:ecs:ap-south-1:294568841304:task/strapi-ecs-cluster/10499e7f87fc44f7a4a53d973c214dbb",
+        "arn:aws:ecs:ap-south-1:294568841304:task/strapi-ecs-cluster/39041df75c644b67b38f414f4d2da8a4",
+        "arn:aws:ecs:ap-south-1:294568841304:task/strapi-ecs-cluster/44ef6c06f6c84f9e82b95b954b535218",
+        "arn:aws:ecs:ap-south-1:294568841304:task/strapi-ecs-cluster/6bb1188a896f42ceb9bd07901354f7e4",
+        "arn:aws:ecs:ap-south-1:294568841304:task/strapi-ecs-cluster/73212d0d97204285af266c48a9facf8d",
+        "arn:aws:ecs:ap-south-1:294568841304:task/strapi-ecs-cluster/7dc4e2cba7084d65b167570fedcd2278",
+        "arn:aws:ecs:ap-south-1:294568841304:task/strapi-ecs-cluster/8fb98bd3d9f946598d659a573a7afb82",
+        "arn:aws:ecs:ap-south-1:294568841304:task/strapi-ecs-cluster/a9c109b750284cbb9702cc2313278f42"
+    ]
+}

@@ -2,6 +2,11 @@
 resource "aws_ecs_cluster" "main" {
   name = "strapi-ecs-cluster"
   
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
+
   tags = {
     Name = "strapi-ecs-cluster"
   }
