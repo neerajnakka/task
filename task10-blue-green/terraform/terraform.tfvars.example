@@ -1,0 +1,94 @@
+# ============================================================================
+# TERRAFORM VARIABLES FILE EXAMPLE
+# ============================================================================
+# Copy this file to terraform.tfvars and customize values
+# This file is NOT tracked by git (add to .gitignore)
+#
+# Usage:
+#   cp terraform.tfvars.example terraform.tfvars
+#   terraform apply  # Will automatically use values from terraform.tfvars
+
+# ============================================================================
+# BASIC CONFIGURATION
+# ============================================================================
+
+aws_region   = "ap-south-1"
+project_name = "strapi"
+
+# ============================================================================
+# DATABASE CONFIGURATION
+# ============================================================================
+
+db_password = "YourStrongPassword123!"
+
+# ============================================================================
+# BLUE/GREEN DEPLOYMENT CONFIGURATION
+# ============================================================================
+
+# Deployment strategy options:
+# - CodeDeployDefault.ECSCanary10Percent5Minutes (RECOMMENDED)
+# - CodeDeployDefault.ECSLinear10Percent10Minutes
+# - CodeDeployDefault.ECSAllAtOnce
+deployment_strategy = "CodeDeployDefault.ECSCanary10Percent5Minutes"
+
+# Enable automatic rollback on deployment failure
+enable_auto_rollback = true
+
+# Minutes to wait before terminating Blue tasks after successful deployment
+termination_wait_time_minutes = 5
+
+# ============================================================================
+# ECS CONFIGURATION
+# ============================================================================
+
+ecs_task_cpu    = 1024
+ecs_task_memory = 2048
+ecs_desired_count = 1
+
+# ============================================================================
+# STRAPI APPLICATION ENVIRONMENT VARIABLES
+# ============================================================================
+
+# Generate strong random values for production
+app_keys           = "key1,key2"
+api_token_salt     = "somerandomsalt123"
+admin_jwt_secret   = "supersecretadminjwt"
+jwt_secret         = "supersecretjwt"
+node_env           = "production"
+
+# ============================================================================
+# NETWORKING CONFIGURATION
+# ============================================================================
+
+vpc_cidr        = "10.0.0.0/16"
+container_port  = 1337
+alb_port        = 80
+
+# ============================================================================
+# NOTES FOR PRODUCTION
+# ============================================================================
+#
+# 1. SECRETS MANAGEMENT:
+#    - Never commit sensitive values to git
+#    - Use AWS Secrets Manager for production
+#    - Rotate secrets regularly
+#
+# 2. STRONG PASSWORDS:
+#    - Generate strong random passwords
+#    - Use at least 16 characters
+#    - Include uppercase, lowercase, numbers, and symbols
+#
+# 3. JWT SECRETS:
+#    - Generate with: openssl rand -base64 32
+#    - Keep them secret and secure
+#    - Rotate periodically
+#
+# 4. DEPLOYMENT STRATEGY:
+#    - Use Canary for most deployments
+#    - Use Linear for critical systems
+#    - Use AllAtOnce only for non-critical systems
+#
+# 5. MONITORING:
+#    - Set up SNS notifications for alarms
+#    - Configure email alerts
+#    - Monitor CloudWatch dashboards regularly

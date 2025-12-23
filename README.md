@@ -19,6 +19,7 @@ This repository contains a Strapi application.
 | **Task 6** | Automated CI/CD Pipeline (GitHub Actions + AWS ECR + S3 Backend) |
 | **Task 7** | **Production Deployment** (ECS Fargate, RDS, Application Load Balancer) |
 | **Task 8** | **CloudWatch Monitoring** (Dashboards, Alarms, Container Insights) |
+| **Task 9** | **Cost Optimization** (Fargate Spot Instnaces) |
 
 ---
 
@@ -415,7 +416,19 @@ Added a layer of **Observability** to the ECS Infrastructure.
 4.  **Operational Dashboard**: A "Single Pane of Glass" showing:
     *   Service Health (CPU/RAM).
     *   Live Task Count.
+    *   Live Task Count.
     *   Network Traffic Graphs.
+
+## 📉 Task 9 – Cost Optimization (Fargate Spot)
+
+Modified the ECS production cluster to run on **Fargate Spot Instances** instead of standard Fargate, aiming for **~70% cost savings**.
+
+### Implementation
+1.  **Capacity Provider**: Switched `launch_type = "FARGATE"` to `capacity_provider_strategy`.
+2.  **Strategy**:
+    *   `capacity_provider = "FARGATE_SPOT"`
+    *   `weight = 100` (100% of tasks run on Spot capacity).
+3.  **Result**: The application runs on spare AWS capacity at a significantly reduced rate, with the trade-off of potential interruptions (handled by ECS auto-replacement).
 
 ---
 
@@ -430,6 +443,8 @@ Added a layer of **Observability** to the ECS Infrastructure.
 | Task 5 | AWS EC2 deployment using Terraform with automated setup    |
 | Task 6 | Full CI/CD Pipeline (GitHub Actions, ECR, S3 Backend)      |
 | Task 7 | Production ECS Fargate Cluster + RDS + Automated Deploy|
+| Task 8 | CloudWatch Alarms & Dashboard resources (`monitoring.tf`)  |
+| Task 9 | Fargate Spot implementation for Cost Savings (`task9.md`)  |
 
 ---
 
